@@ -1,0 +1,90 @@
+﻿@model IEnumerable<BTLNHOM10.Models.TinTuc>
+@using BTLNHOM10.Models
+@*@using X.PagedList.Mvc.Core*@
+@*@model X.PagedList.IPagedList<Tour>*@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "DanhsachTT";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>DanhsachTT</h1>
+
+<p>
+    <a asp-action="themtin">Thêm Mới</a>
+</p>
+
+<table class="table table_tintuc table-bordered">
+    <thead>
+        <tr class="table-warning">
+            <th>
+                Anh
+            </th>
+            <th>
+                Ngày Đăng
+            </th>
+            <th>
+                Mô Tả
+            </th>
+            <th>
+                Nội dung
+            </th>
+            <th>
+                Mã Nhân Viên Đăng
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="tbody-tintuc">
+        @{
+            int i = 0;
+            string @cls = "table-success";
+        }
+        @foreach (var item in Model)
+        {
+            i = i + 1;
+            if (i % 2 == 0)
+            {
+                cls = "table-primary";
+            }
+            <tr class="@cls">
+                <td>
+                    <img src="@Url.Content("../../img/AnhTinTuc/"+item.Anh)" class="image">
+                </td>
+                <td>
+                    <p>@item.NgayDang</p>
+                       @* @Html.DisplayFor(modelItem => item.NgayDang)*@
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.MoTa)
+                </td>
+                <td id="table_content">
+                        @Html.DisplayFor(modelItem => item.NoiDung)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => item.MaNv)
+                </td>
+                <td>
+                   
+                    <a asp-action="ChitietTinTuc" asp-route-id="@item.MaTin">Chi Tiết</a> |
+                    <a asp-action="xoatin" asp-route-matin="@item.MaTin">Xóa</a>
+                </td>
+            </tr>
+            }
+    </tbody>
+</table>
+<style>
+    table.table_tintuc {
+    table-layout: fixed;
+    width: 100%;
+    
+}
+
+td, th {
+    max-width: 200px; /* adjust the width to your preference */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+</style>

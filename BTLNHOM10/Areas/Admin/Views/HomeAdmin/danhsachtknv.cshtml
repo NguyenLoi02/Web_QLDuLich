@@ -1,0 +1,56 @@
+﻿@model IEnumerable<BTLNHOM10.Models.TaiKhoan>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "danhsachtknv";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Danh Sách Tài Khoản Nhân Viên</h1>
+@TempData["Message"]
+<p>
+    <a asp-action="themtknv">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr class="table-warning">
+            <th>
+                Tên Đăng Nhập
+            </th>
+            <th>
+                Mật Khẩu
+            </th>
+            <th>
+               Loại
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+            string @cls = "table-success";
+        }
+        @foreach (var item in Model)
+        {
+            i = i + 1;
+            if (i % 2 == 0)
+            {
+                cls = "table-primary";
+            }
+            <tr class="@cls">
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>         
+            <td>
+                  Admin
+            </td>
+            <td>
+                <a asp-action="xoatknv" asp-route-username="@item.UserName">Xóa</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
